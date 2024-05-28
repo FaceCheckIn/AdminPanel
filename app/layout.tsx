@@ -2,10 +2,10 @@ import type { Metadata } from "next"
 import { Vazirmatn } from "next/font/google"
 import "./globals.css"
 
-const inter = Vazirmatn({ subsets: ["latin"] })
+const vazir = Vazirmatn({ subsets: ["latin"], variable: "--font-vazir" })
 
 export const metadata: Metadata = {
-  title: "مدیریت افراد",
+  title: "سیری",
 }
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="rtl">
-      <body className={inter.className}>{children}</body>
+      <body className={vazir.className}>{children}</body>
     </html>
   )
 }
