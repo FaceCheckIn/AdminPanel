@@ -1,16 +1,6 @@
 import { Line } from "react-chartjs-2"
 
-const AreaChart: React.FC = () => {
-  const labels = [
-    ["جمعه"],
-    ["پنج شنبه"],
-    ["چهارشنبه"],
-    ["سه شنبه"],
-    ["دوشنبه"],
-    ["یکشنبه"],
-    ["شنبه"],
-  ]
-
+const AreaChart: React.FC = ({ labels = [] }: any) => {
   const options = {
     plugins: {
       legend: {

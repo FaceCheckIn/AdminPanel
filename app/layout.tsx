@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Vazirmatn } from "next/font/google"
 import "./globals.css"
+import Providers from "./provider"
 
 const vazir = Vazirmatn({ subsets: ["latin"], variable: "--font-vazir" })
 
@@ -15,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="rtl">
-      <body className={vazir.className}>{children}</body>
+      <body className={vazir.className}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }
