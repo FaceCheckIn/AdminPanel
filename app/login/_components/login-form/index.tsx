@@ -15,6 +15,7 @@ const LoginForm: React.FC = () => {
   const onSubmit = () => {
     setLoading(true)
     setTimeout(() => {
+      localStorage.setItem("isAuth", "true")
       router.push("/")
     }, 1000)
   }

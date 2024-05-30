@@ -1,8 +1,58 @@
 import Image from "next/image"
 
-const UsersList: React.FC = () => {
+interface Props {
+  selectedUser: any
+  setSelectedUser: any
+}
+
+const UsersList: React.FC<Props> = ({ selectedUser, setSelectedUser }) => {
+  const users = [
+    {
+      id: 0,
+      name: "مصطفی محمدی",
+      role: "مدیر",
+      isActive: true,
+      image: "/fake1.jpeg",
+    },
+    {
+      id: 1,
+      name: " علی علیایی",
+      role: "برنامه نویس",
+      isActive: true,
+      image: "/fake2.jpeg",
+    },
+    {
+      id: 2,
+      name: " سجاد فانی",
+      role: "برنامه نویس",
+      isActive: true,
+      image: "/fake3.jpeg",
+    },
+    {
+      id: 3,
+      name: "مصطفی محمدی",
+      role: "مدیر",
+      isActive: true,
+      image: "/fake1.jpeg",
+    },
+    {
+      id: 4,
+      name: " علی علیایی",
+      role: "برنامه نویس",
+      isActive: true,
+      image: "/fake2.jpeg",
+    },
+    {
+      id: 5,
+      name: " سجاد فانی",
+      role: "برنامه نویس",
+      isActive: true,
+      image: "/fake3.jpeg",
+    },
+  ]
+
   return (
-    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-hidden">
       <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
         <table className="min-w-full leading-normal text-right" dir="rtl">
           <thead>
@@ -18,103 +68,48 @@ const UsersList: React.FC = () => {
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 w-10 h-10">
-                    <Image
-                      width={44}
-                      height={44}
-                      className="w-full h-full rounded-full"
-                      src="/fake1.jpeg"
-                      alt=""
-                    />
+          <tbody className="max-h-[200px] overflow-hidden">
+            {users.map((user) => (
+              <tr
+                key={user.id}
+                onClick={() => setSelectedUser(user)}
+                style={{
+                  background: selectedUser?.id == user.id ? "#b5ddf5" : "white",
+                }}
+                className="cursor-pointer"
+              >
+                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0 w-10 h-10">
+                      <Image
+                        width={44}
+                        height={44}
+                        className="w-full h-full rounded-full"
+                        src={user.image}
+                        alt=""
+                      />
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-gray-900 whitespace-no-wrap ms-3">
+                        {user.name}
+                      </p>
+                    </div>
                   </div>
-                  <div className="ml-3">
-                    <p className="text-gray-900 whitespace-no-wrap ms-3">
-                      مصطفی محمدی{" "}
-                    </p>
-                  </div>
-                </div>
-              </td>
-              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <p className="text-gray-900 whitespace-no-wrap">مدیر</p>
-              </td>
-              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                  <span
-                    aria-hidden
-                    className="absolute inset-0 bg-red-500 opacity-50 rounded-full"
-                  ></span>
-                  <span className="relative text-red-700">غیرفعال</span>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 w-10 h-10">
-                    <Image
-                      width={44}
-                      height={44}
-                      className="w-full h-full rounded-full"
-                      src="/fake2.jpeg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-gray-900 whitespace-no-wrap ms-3">
-                      علی علیایی
-                    </p>
-                  </div>
-                </div>
-              </td>
-              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <p className="text-gray-900 whitespace-no-wrap">برنامه نویس</p>
-              </td>
-              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                  <span
-                    aria-hidden
-                    className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                  ></span>
-                  <span className="relative">فعال</span>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 w-10 h-10">
-                    <Image
-                      width={44}
-                      height={44}
-                      className="w-full h-full rounded-full"
-                      src="/fake3.jpeg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-gray-900 whitespace-no-wrap ms-3">
-                      سجاد فانی
-                    </p>
-                  </div>
-                </div>
-              </td>
-              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <p className="text-gray-900 whitespace-no-wrap">مدیر فروش</p>
-              </td>
-              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                  <span
-                    aria-hidden
-                    className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                  ></span>
-                  <span className="relative">فعال</span>
-                </span>
-              </td>
-            </tr>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                  <p className="text-gray-900 whitespace-no-wrap">
+                    {user.role}
+                  </p>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 ">
+                  {user.isActive ? (
+                    <div className="animate-pulse  bg-green-700 rounded-full size-4"></div>
+                  ) : (
+                    <div className="bg-red-500 rounded-full size-4"></div>
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
