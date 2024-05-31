@@ -12,9 +12,8 @@ import BarChart from "@/components/bar-chart"
 import Image from "next/image"
 import AreaChart from "@/components/area-chart"
 import { useRouter } from "next/navigation"
-import { today, getLocalTimeZone } from "@internationalized/date"
 import { Select, SelectItem } from "@nextui-org/select"
-import { eachDayOfInterval, format } from "date-fns"
+import { eachDayOfInterval } from "date-fns"
 import { filterOptions } from "./utils"
 
 dayjs.extend(jalaliday)
@@ -24,8 +23,6 @@ export default function Home() {
   const date = dayjs()
   const router = useRouter()
   const [labels, setLabels] = useState<string[]>([])
-  let defaultDate = today(getLocalTimeZone())
-  let [focusedDate, setFocusedDate] = useState(defaultDate)
   const jalaliDate = date.calendar("jalali")
 
   ChartJS.register(...registerables)
@@ -73,18 +70,21 @@ export default function Home() {
                   X
                 </button>
               </div>
-              <div className="flex items-start justify-between px-4">
-                <div className="flex justify-between w-full">
-                  <div className="w-[580px] h-auto">
-                    <AreaChart />
-                  </div>
+              <div className="flex flex-row-reverse">
+                <div className="max-w-[500px]">
                   <RangeCalendar
-                    onFocusChange={setFocusedDate}
-                    focusedValue={focusedDate}
+                    onChange={(val) => getDates(val.start, val.end)}
                   />
                 </div>
+                <div className="flex items-start justify-between px-4">
+                  <div className="flex justify-between w-full">
+                    <div className="w-[580px] h-auto">
+                      <AreaChart labels={labels} mode="enter" />
+                      <AreaChart labels={labels} mode="exit" />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <AreaChart />
             </div>
           ) : (
             <>
@@ -96,8 +96,6 @@ export default function Home() {
                   ))}
                 </Select>
                 <RangeCalendar
-                  onFocusChange={setFocusedDate}
-                  focusedValue={focusedDate}
                   onChange={(val) => getDates(val.start, val.end)}
                 />
               </div>

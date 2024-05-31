@@ -11,7 +11,7 @@ const BarChart: React.FC<{ labels: string[]; mode: "enter" | "exit" }> = ({
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
-  const emojis = ["😃", "🙂", "😕", "☹️", "😭"]
+  const emojis = ["😃", "🙂", "😕", "😖", "😭", "😊"]
 
   const data = {
     labels,
