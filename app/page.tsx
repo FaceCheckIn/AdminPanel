@@ -13,6 +13,9 @@ import Image from "next/image"
 import AreaChart from "@/components/area-chart"
 import { useRouter } from "next/navigation"
 import { today, getLocalTimeZone } from "@internationalized/date"
+import { Select, SelectItem } from "@nextui-org/select"
+import { eachDayOfInterval, format } from "date-fns"
+import { filterOptions } from "./utils"
 
 dayjs.extend(jalaliday)
 
@@ -20,18 +23,28 @@ export default function Home() {
   const [user, setUser] = useState<any>(null)
   const date = dayjs()
   const router = useRouter()
+  const [labels, setLabels] = useState<string[]>([])
   let defaultDate = today(getLocalTimeZone())
   let [focusedDate, setFocusedDate] = useState(defaultDate)
   const jalaliDate = date.calendar("jalali")
 
   ChartJS.register(...registerables)
 
-  console.log(focusedDate)
-
   useEffect(() => {
     const isAuth = localStorage.getItem("isAuth")
     if (!isAuth) router.replace("/login")
-  })
+  }, [router])
+
+  function getDates(start: any, end: any) {
+    if (!start || !end) return []
+
+    const dates = eachDayOfInterval({
+      start: new Date(start),
+      end: new Date(end),
+    })
+
+    setLabels(dates.map((date) => dayjs(date).format("YYYY/MM/DD")))
+  }
 
   return (
     <div dir="rtl" className="font-vazir overflow-hidden">
@@ -63,10 +76,9 @@ export default function Home() {
               <div className="flex items-start justify-between px-4">
                 <div className="flex justify-between w-full">
                   <div className="w-[580px] h-auto">
-                    <AreaChart labels={[]} />
+                    <AreaChart />
                   </div>
                   <RangeCalendar
-                    className="flex-row-reverse"
                     onFocusChange={setFocusedDate}
                     focusedValue={focusedDate}
                   />
@@ -75,10 +87,26 @@ export default function Home() {
               <AreaChart />
             </div>
           ) : (
-            <BarChart />
+            <>
+              <h2 className="font-semibold text-medium">گزارش جامع</h2>
+              <div className="flex justify-between pe-8">
+                <Select label="فیلتر بر اساس" className="max-w-[200px] mt-4">
+                  {filterOptions.map((item) => (
+                    <SelectItem key={item.value}>{item.label}</SelectItem>
+                  ))}
+                </Select>
+                <RangeCalendar
+                  onFocusChange={setFocusedDate}
+                  focusedValue={focusedDate}
+                  onChange={(val) => getDates(val.start, val.end)}
+                />
+              </div>
+              <BarChart labels={labels} mode="enter" />
+              <BarChart labels={labels} mode="exit" />
+            </>
           )}
         </div>
-        <div className="w-1/3">
+        <div className="w-1/3 pt-10 pe-4">
           <UsersList setSelectedUser={setUser} selectedUser={user} />
         </div>
       </div>
