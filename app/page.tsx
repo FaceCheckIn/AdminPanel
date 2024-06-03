@@ -1,7 +1,7 @@
 "use client"
 
 import Header from "@/components/header"
-import { DateValue, RangeCalendar, RangeValue } from "@nextui-org/calendar"
+import { DateValue, RangeValue } from "@nextui-org/calendar"
 import UsersList from "@/components/users"
 import { Chart as ChartJS, registerables } from "chart.js"
 import { useEffect, useState } from "react"
@@ -26,9 +26,9 @@ export default function Home() {
   const [user, setUser] = useState<any>(null)
   const date = dayjs()
   const router = useRouter()
-  const [labels, setLabels] = useState<string[]>([])
   const [category, setCategory] = useState("")
   const jalaliDate = date.calendar("jalali")
+  const [labels, setLabels] = useState<string[]>([])
   let [value, setValue] = useState<RangeValue<DateValue>>({
     start: today(getLocalTimeZone()),
     end: today(getLocalTimeZone()).add({ weeks: 1, days: 3 }),
@@ -56,7 +56,7 @@ export default function Home() {
 
   return (
     <div dir="rtl" className="font-vazir overflow-hidden">
-      <Header date={jalaliConvertor(jalaliDate.format("YYYY MM dddd"))} />
+      <Header date={jalaliConvertor(jalaliDate.format("YYYY DD dddd MM"))} />
       <div className="flex">
         <div className="w-2/3 p-4">
           {user ? (

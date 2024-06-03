@@ -40,7 +40,13 @@ export const jalaliConvertor = (date: string) => {
         res = "Invalid date"
     }
   }
-  res = `${date.split(" ")[1]} ${res} ${date.split(" ")[0]}`
+  res = `${res} ${date.split(" ")[0]}/${date.split(" ")[3]}/${
+    date.split(" ")[1]
+  }
+    
+  
+    
+  `
 
   res = res.replace(/[0-9]/g, function (digit) {
     return englishToPersianMap[digit]
