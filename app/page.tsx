@@ -101,15 +101,18 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-row-reverse justify-end">
+              <div className="flex flex-row-reverse justify-end w-full">
                 <div className="flex items-start justify-between px-4">
                   <div className="flex justify-between w-full">
-                    <div className="w-[580px] h-auto">
-                      <div className="flex">
+                    <div className="h-auto max-w-[700px]">
+                      <div className="flex justify-between">
                         <EmojiChart mode="enter" />
                         <AreaChart labels={labels} mode="enter" />
                       </div>
-                      <AreaChart labels={labels} mode="exit" />
+                      <div className="flex justify-between">
+                        <EmojiChart mode="exit" />
+                        <AreaChart labels={labels} mode="exit" />
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -12,7 +12,7 @@ const EmojiChart: React.FC<{ mode: "enter" | "exit" }> = ({ mode }) => {
     labels: ["😃", "🙂", "😕", "😖", "😭", "😊"],
     datasets: [
       {
-        label: mode === "enter" ? "میانگین ساعات ورود" : "میانگین ساعات خروج",
+        label: mode === "enter" ? "حالت ورود" : "حالت خروج",
         data: [1, 2, 3, 4, 5, 6].map((_) => getRandomNumber(1, 6)),
         backgroundColor:
           mode === "enter"
@@ -31,7 +31,13 @@ const EmojiChart: React.FC<{ mode: "enter" | "exit" }> = ({ mode }) => {
       },
     },
   }
-  return <Bar data={data} options={options} style={{ maxWidth: 320 }} />
+  return (
+    <Bar
+      data={data}
+      options={options}
+      style={{ maxWidth: 330, marginInlineEnd: 62 }}
+    />
+  )
 }
 
 export default EmojiChart
