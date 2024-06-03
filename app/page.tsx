@@ -1,7 +1,7 @@
 "use client"
 
 import Header from "@/components/header"
-import { RangeCalendar } from "@nextui-org/calendar"
+import { DateValue, RangeCalendar, RangeValue } from "@nextui-org/calendar"
 import UsersList from "@/components/users"
 import { Chart as ChartJS, registerables } from "chart.js"
 import { useEffect, useState } from "react"
@@ -15,15 +15,10 @@ import { useRouter } from "next/navigation"
 import { Select, SelectItem } from "@nextui-org/select"
 import { eachDayOfInterval } from "date-fns"
 import { filterOptions } from "./utils"
+import { today, getLocalTimeZone } from "@internationalized/date"
 import EmojiChart from "@/components/emojie-chart"
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-} from "@nextui-org/react"
-import CalendarIcon from "@/public/calendar-icon"
 import CategoryCharts from "@/components/category-charts"
+import RangeCalendarPicker from "@/components/range-calendar"
 
 dayjs.extend(jalaliday)
 
@@ -34,9 +29,15 @@ export default function Home() {
   const [labels, setLabels] = useState<string[]>([])
   const [category, setCategory] = useState("")
   const jalaliDate = date.calendar("jalali")
+  let [value, setValue] = useState<RangeValue<DateValue>>({
+    start: today(getLocalTimeZone()),
+    end: today(getLocalTimeZone()).add({ weeks: 1, days: 3 }),
+  })
+  let [focusedValue, setFocusedValue] = useState<DateValue>(
+    today(getLocalTimeZone())
+  )
 
   ChartJS.register(...registerables)
-
   useEffect(() => {
     const isAuth = localStorage.getItem("isAuth")
     if (!isAuth) router.replace("/login")
@@ -77,23 +78,13 @@ export default function Home() {
                   )}
                 </div>
                 <div className="flex items-center">
-                  <Dropdown>
-                    <DropdownTrigger>
-                      <button className="outline-none">
-                        <CalendarIcon />
-                      </button>
-                    </DropdownTrigger>
-                    <DropdownMenu
-                      aria-label="Static Actions"
-                      closeOnSelect={false}
-                    >
-                      <DropdownItem>
-                        <RangeCalendar
-                          onChange={(val) => getDates(val.start, val.end)}
-                        />
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
+                  <RangeCalendarPicker
+                    value={value}
+                    focusedValue={focusedValue}
+                    setFocusedValue={setFocusedValue}
+                    setValue={setValue}
+                    onChange={getDates}
+                  />
                   <button
                     className="mx-8 mt-1 text-xl"
                     onClick={() => setUser(null)}
@@ -129,23 +120,13 @@ export default function Home() {
                     <SelectItem key={item.value}>{item.label}</SelectItem>
                   ))}
                 </Select>
-                <Dropdown>
-                  <DropdownTrigger>
-                    <button className="outline-none">
-                      <CalendarIcon />
-                    </button>
-                  </DropdownTrigger>
-                  <DropdownMenu
-                    aria-label="Static Actions"
-                    closeOnSelect={false}
-                  >
-                    <DropdownItem>
-                      <RangeCalendar
-                        onChange={(val) => getDates(val.start, val.end)}
-                      />
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
+                <RangeCalendarPicker
+                  value={value}
+                  focusedValue={focusedValue}
+                  setFocusedValue={setFocusedValue}
+                  setValue={setValue}
+                  onChange={getDates}
+                />
               </div>
               {category ? (
                 <CategoryCharts labels={labels} />

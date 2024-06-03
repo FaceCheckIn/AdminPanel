@@ -5,9 +5,9 @@ import { I18nProvider } from "@react-aria/i18n"
 
 function Providers({ children }: React.PropsWithChildren) {
   return (
-    <I18nProvider locale="fa-IR-u-ca-persian">
-      <NextUIProvider>{children}</NextUIProvider>
-    </I18nProvider>
+    <NextUIProvider>
+      <I18nProvider locale="fa-IR-u-ca-persian">{children}</I18nProvider>
+    </NextUIProvider>
   )
 }
 
