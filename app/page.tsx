@@ -21,9 +21,9 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  Button,
 } from "@nextui-org/react"
 import CalendarIcon from "@/public/calendar-icon"
+import CategoryCharts from "@/components/category-charts"
 
 dayjs.extend(jalaliday)
 
@@ -32,6 +32,7 @@ export default function Home() {
   const date = dayjs()
   const router = useRouter()
   const [labels, setLabels] = useState<string[]>([])
+  const [category, setCategory] = useState("")
   const jalaliDate = date.calendar("jalali")
 
   ChartJS.register(...registerables)
@@ -78,7 +79,7 @@ export default function Home() {
                 <div className="flex items-center">
                   <Dropdown>
                     <DropdownTrigger>
-                      <button className="">
+                      <button className="outline-none">
                         <CalendarIcon />
                       </button>
                     </DropdownTrigger>
@@ -101,19 +102,15 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-row-reverse justify-end w-full">
-                <div className="flex items-start justify-between px-4">
-                  <div className="flex justify-between w-full">
-                    <div className="h-auto max-w-[700px]">
-                      <div className="flex justify-between">
-                        <EmojiChart mode="enter" />
-                        <AreaChart labels={labels} mode="enter" />
-                      </div>
-                      <div className="flex justify-between">
-                        <EmojiChart mode="exit" />
-                        <AreaChart labels={labels} mode="exit" />
-                      </div>
-                    </div>
+              <div className="flex flex-row-reverse w-2/3">
+                <div className="flex flex-col justify-between w-full">
+                  <div className="flex justify-around">
+                    <EmojiChart mode="enter" />
+                    <AreaChart labels={labels} mode="enter" />
+                  </div>
+                  <div className="flex justify-around">
+                    <EmojiChart mode="exit" />
+                    <AreaChart labels={labels} mode="exit" />
                   </div>
                 </div>
               </div>
@@ -122,14 +119,19 @@ export default function Home() {
             <>
               <h2 className="font-semibold text-medium">گزارش جامع</h2>
               <div className="flex justify-between pe-8">
-                <Select label="فیلتر بر اساس" className="max-w-[200px] mt-4">
+                <Select
+                  label="فیلتر بر اساس"
+                  className="max-w-[200px] mt-4"
+                  onChange={(e) => setCategory(e.target.value)}
+                  value={category}
+                >
                   {filterOptions.map((item) => (
                     <SelectItem key={item.value}>{item.label}</SelectItem>
                   ))}
                 </Select>
                 <Dropdown>
                   <DropdownTrigger>
-                    <button className="">
+                    <button className="outline-none">
                       <CalendarIcon />
                     </button>
                   </DropdownTrigger>
@@ -145,8 +147,14 @@ export default function Home() {
                   </DropdownMenu>
                 </Dropdown>
               </div>
-              <BarChart labels={labels} mode="enter" />
-              <BarChart labels={labels} mode="exit" />
+              {category ? (
+                <CategoryCharts labels={labels} />
+              ) : (
+                <>
+                  <BarChart labels={labels} mode="enter" />
+                  <BarChart labels={labels} mode="exit" />
+                </>
+              )}
             </>
           )}
         </div>
