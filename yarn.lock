@@ -541,6 +541,22 @@
     "@react-stately/menu" "3.6.1"
     "@react-types/menu" "3.9.7"
 
+"@nextui-org/dropdown@^2.1.25":
+  version "2.1.25"
+  resolved "https://registry.yarnpkg.com/@nextui-org/dropdown/-/dropdown-2.1.25.tgz#c620dd528a807e372ca62b9c609da1253aebb1d4"
+  integrity sha512-CRxRNYQ1CF0gwNTKVL7K5CZku0osN/YEtr10zbU5EZk2/7r+NDh/Hx0dHnLiVSIFnLp9H6KAd2PAGfGXLSa6gQ==
+  dependencies:
+    "@nextui-org/aria-utils" "2.0.20"
+    "@nextui-org/menu" "2.0.24"
+    "@nextui-org/popover" "2.1.23"
+    "@nextui-org/react-utils" "2.0.13"
+    "@nextui-org/shared-utils" "2.0.5"
+    "@react-aria/focus" "3.16.2"
+    "@react-aria/menu" "3.13.1"
+    "@react-aria/utils" "3.24.1"
+    "@react-stately/menu" "3.6.1"
+    "@react-types/menu" "3.9.7"
+
 "@nextui-org/framer-utils@2.0.19":
   version "2.0.19"
   resolved "https://registry.yarnpkg.com/@nextui-org/framer-utils/-/framer-utils-2.0.19.tgz#53483a2e9a2bd552f0008dac53008446dc833702"
@@ -665,6 +681,26 @@
     "@react-stately/tree" "3.7.6"
     "@react-types/menu" "3.9.7"
     "@react-types/shared" "3.22.1"
+
+"@nextui-org/menu@2.0.24":
+  version "2.0.24"
+  resolved "https://registry.yarnpkg.com/@nextui-org/menu/-/menu-2.0.24.tgz#ce75c61f76ceeefdf502a6e228a4b3c9cb087b41"
+  integrity sha512-psM0LUtgUQCXJF3QKk9lf1rclGxbcdmzgYa6V4k9jd6MJvnksP1dGUnrLye1nO3g50+RGxMMkuJD6wvGiD7/iA==
+  dependencies:
+    "@nextui-org/aria-utils" "2.0.20"
+    "@nextui-org/divider" "2.0.28"
+    "@nextui-org/react-utils" "2.0.13"
+    "@nextui-org/shared-utils" "2.0.5"
+    "@nextui-org/use-aria-menu" "2.0.4"
+    "@nextui-org/use-is-mobile" "2.0.7"
+    "@react-aria/focus" "3.16.2"
+    "@react-aria/interactions" "3.21.1"
+    "@react-aria/menu" "3.13.1"
+    "@react-aria/utils" "3.24.1"
+    "@react-stately/menu" "3.6.1"
+    "@react-stately/tree" "3.7.6"
+    "@react-types/menu" "3.9.7"
+    "@react-types/shared" "3.23.1"
 
 "@nextui-org/modal@2.0.34":
   version "2.0.34"
@@ -1169,6 +1205,21 @@
     "@react-stately/tree" "3.7.6"
     "@react-types/menu" "3.9.7"
     "@react-types/shared" "3.22.1"
+
+"@nextui-org/use-aria-menu@2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@nextui-org/use-aria-menu/-/use-aria-menu-2.0.4.tgz#27b5f8541636ec4bd5387bf36b7cfd7f0c090c91"
+  integrity sha512-PvTjAmKiuP40UmHRNteaDmkxtAOtSVB2fFQYXDRzNjXrosngfq5RrZqAPkg3N9oW4NLtKiWyZlGoGhXNamrLGQ==
+  dependencies:
+    "@react-aria/i18n" "3.10.2"
+    "@react-aria/interactions" "3.21.1"
+    "@react-aria/menu" "3.13.1"
+    "@react-aria/selection" "3.17.5"
+    "@react-aria/utils" "3.24.1"
+    "@react-stately/collections" "3.10.5"
+    "@react-stately/tree" "3.7.6"
+    "@react-types/menu" "3.9.7"
+    "@react-types/shared" "3.23.1"
 
 "@nextui-org/use-aria-modal-overlay@2.0.8":
   version "2.0.8"

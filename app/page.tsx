@@ -15,6 +15,15 @@ import { useRouter } from "next/navigation"
 import { Select, SelectItem } from "@nextui-org/select"
 import { eachDayOfInterval } from "date-fns"
 import { filterOptions } from "./utils"
+import EmojiChart from "@/components/emojie-chart"
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+} from "@nextui-org/react"
+import CalendarIcon from "@/public/calendar-icon"
 
 dayjs.extend(jalaliday)
 
@@ -66,20 +75,40 @@ export default function Home() {
                     <div className="pulse bg-red-500 rounded-full size-4"></div>
                   )}
                 </div>
-                <button className="me-8" onClick={() => setUser(null)}>
-                  X
-                </button>
-              </div>
-              <div className="flex flex-row-reverse">
-                <div className="max-w-[500px]">
-                  <RangeCalendar
-                    onChange={(val) => getDates(val.start, val.end)}
-                  />
+                <div className="flex items-center">
+                  <Dropdown>
+                    <DropdownTrigger>
+                      <button className="">
+                        <CalendarIcon />
+                      </button>
+                    </DropdownTrigger>
+                    <DropdownMenu
+                      aria-label="Static Actions"
+                      closeOnSelect={false}
+                    >
+                      <DropdownItem>
+                        <RangeCalendar
+                          onChange={(val) => getDates(val.start, val.end)}
+                        />
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                  <button
+                    className="mx-8 mt-1 text-xl"
+                    onClick={() => setUser(null)}
+                  >
+                    X
+                  </button>
                 </div>
+              </div>
+              <div className="flex flex-row-reverse justify-end">
                 <div className="flex items-start justify-between px-4">
                   <div className="flex justify-between w-full">
                     <div className="w-[580px] h-auto">
-                      <AreaChart labels={labels} mode="enter" />
+                      <div className="flex">
+                        <EmojiChart mode="enter" />
+                        <AreaChart labels={labels} mode="enter" />
+                      </div>
                       <AreaChart labels={labels} mode="exit" />
                     </div>
                   </div>
@@ -95,9 +124,23 @@ export default function Home() {
                     <SelectItem key={item.value}>{item.label}</SelectItem>
                   ))}
                 </Select>
-                <RangeCalendar
-                  onChange={(val) => getDates(val.start, val.end)}
-                />
+                <Dropdown>
+                  <DropdownTrigger>
+                    <button className="">
+                      <CalendarIcon />
+                    </button>
+                  </DropdownTrigger>
+                  <DropdownMenu
+                    aria-label="Static Actions"
+                    closeOnSelect={false}
+                  >
+                    <DropdownItem>
+                      <RangeCalendar
+                        onChange={(val) => getDates(val.start, val.end)}
+                      />
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
               </div>
               <BarChart labels={labels} mode="enter" />
               <BarChart labels={labels} mode="exit" />
