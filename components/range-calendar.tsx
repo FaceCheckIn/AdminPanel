@@ -78,6 +78,7 @@ const RangeCalendarPicker: React.FC<Props> = ({
                   onClick={() => {
                     setValue(prevWeek)
                     setFocusedValue(prevWeek.end)
+                    onChange(prevWeek.start, prevWeek.end)
                   }}
                 >
                   هفته قبلی
@@ -86,6 +87,7 @@ const RangeCalendarPicker: React.FC<Props> = ({
                   onClick={() => {
                     setValue(thisMonth)
                     setFocusedValue(thisMonth.start)
+                    onChange(thisMonth.start, thisMonth.end)
                   }}
                 >
                   ماه فعلی
@@ -94,6 +96,7 @@ const RangeCalendarPicker: React.FC<Props> = ({
                   onClick={() => {
                     setValue(PrevMonthValue)
                     setFocusedValue(PrevMonthValue.start)
+                    onChange(PrevMonthValue.start, PrevMonthValue.end)
                   }}
                 >
                   ماه قبلی
