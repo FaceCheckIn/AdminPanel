@@ -25,7 +25,7 @@ const UsersList: React.FC<Props> = ({ selectedUser, setSelectedUser }) => {
       id: 2,
       name: " سجاد فانی",
       role: "برنامه نویس",
-      isActive: true,
+      isActive: false,
       image: "/fake3.jpeg",
     },
     {
@@ -39,7 +39,7 @@ const UsersList: React.FC<Props> = ({ selectedUser, setSelectedUser }) => {
       id: 4,
       name: " علی علیایی",
       role: "برنامه نویس",
-      isActive: true,
+      isActive: false,
       image: "/fake2.jpeg",
     },
     {
@@ -103,9 +103,9 @@ const UsersList: React.FC<Props> = ({ selectedUser, setSelectedUser }) => {
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 ">
                   {user.isActive ? (
-                    <div className="animate-pulse  bg-green-700 rounded-full size-4"></div>
+                    <div className="pulse  bg-green-700 rounded-full size-4"></div>
                   ) : (
-                    <div className="bg-red-500 rounded-full size-4"></div>
+                    <div className="pulse bg-red-500 rounded-full size-4"></div>
                   )}
                 </td>
               </tr>

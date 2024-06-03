@@ -61,9 +61,9 @@ export default function Home() {
                   />
                   <h4 className="mx-3">{user.name}</h4>
                   {user.isActive ? (
-                    <div className="animate-pulse mt-1 bg-green-700 rounded-full size-4"></div>
+                    <div className="pulse mt-1 bg-green-700 rounded-full size-4"></div>
                   ) : (
-                    <div className="bg-red-500 rounded-full size-4"></div>
+                    <div className="pulse bg-red-500 rounded-full size-4"></div>
                   )}
                 </div>
                 <button className="me-8" onClick={() => setUser(null)}>
