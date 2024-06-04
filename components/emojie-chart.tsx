@@ -31,7 +31,13 @@ const EmojiChart: React.FC<{ mode: "enter" | "exit" }> = ({ mode }) => {
       },
     },
   }
-  return <Bar data={data} options={options} style={{ maxWidth: 380 }} />
+  return (
+    <Bar
+      data={data}
+      options={options}
+      style={{ minWidth: 380, maxWidth: 380 }}
+    />
+  )
 }
 
 export default EmojiChart

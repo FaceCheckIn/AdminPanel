@@ -10,15 +10,14 @@ import jalaliday from "jalaliday"
 import { jalaliConvertor } from "@/utils/jalali-caonvertor"
 import BarChart from "@/components/bar-chart"
 import Image from "next/image"
-import AreaChart from "@/components/area-chart"
 import { useRouter } from "next/navigation"
 import { Select, SelectItem } from "@nextui-org/select"
 import { eachDayOfInterval } from "date-fns"
 import { filterOptions } from "./utils"
 import { today, getLocalTimeZone } from "@internationalized/date"
-import EmojiChart from "@/components/emojie-chart"
 import CategoryCharts from "@/components/category-charts"
 import RangeCalendarPicker from "@/components/range-calendar"
+import UsersCharts from "@/components/users-charts"
 
 dayjs.extend(jalaliday)
 
@@ -60,7 +59,7 @@ export default function Home() {
       <div className="flex">
         <div className="w-2/3 p-4">
           {user ? (
-            <div className="flex flex-col">
+            <>
               <div className="flex justify-between items-center">
                 <div className="flex items-center justify-start">
                   <Image
@@ -93,19 +92,8 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-row-reverse w-2/3">
-                <div className="flex flex-col justify-between w-full">
-                  <div className="flex justify-around">
-                    <EmojiChart mode="enter" />
-                    <AreaChart labels={labels} mode="enter" />
-                  </div>
-                  <div className="flex justify-around">
-                    <EmojiChart mode="exit" />
-                    <AreaChart labels={labels} mode="exit" />
-                  </div>
-                </div>
-              </div>
-            </div>
+              <UsersCharts labels={labels} />
+            </>
           ) : (
             <>
               <h2 className="font-semibold text-medium">گزارش جامع</h2>
