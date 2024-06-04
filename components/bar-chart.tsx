@@ -1,5 +1,7 @@
 import { Bar } from "react-chartjs-2"
 import { Chart as ChartJS, Tooltip } from "chart.js"
+import dayjs from "dayjs"
+import { digitsEnToFa } from "@persian-tools/persian-tools"
 
 ChartJS.register(Tooltip)
 
@@ -14,7 +16,10 @@ const BarChart: React.FC<{ labels: string[]; mode: "enter" | "exit" }> = ({
   const emojis = ["😃", "🙂", "😕", "😖", "😭", "😊"]
 
   const data = {
-    labels,
+    labels: labels.map((label) => {
+      const jalali = dayjs(label).calendar("jalali").format("YYYY/MM/DD")
+      return digitsEnToFa(jalali)
+    }),
     datasets: [
       {
         label: mode === "enter" ? "میانگین ساعات ورود" : "میانگین ساعات خروج",

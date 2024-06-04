@@ -50,3 +50,7 @@ div[data-slot="header-wrapper"] {
       box-shadow: 0 0 0 0 rgba(204,169,44, 0);
   }
 }
+
+.data-\[hover\=true\]\:bg-default[data-hover=true] {
+  background: #fff !important;
+}

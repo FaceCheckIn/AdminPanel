@@ -1,4 +1,6 @@
 import { Line } from "react-chartjs-2"
+import { digitsEnToFa } from "@persian-tools/persian-tools"
+import dayjs from "dayjs"
 
 const AreaChart: React.FC<{ labels: string[]; mode: "enter" | "exit" }> = ({
   labels = [],
@@ -11,7 +13,10 @@ const AreaChart: React.FC<{ labels: string[]; mode: "enter" | "exit" }> = ({
   const emojis = ["😃", "🙂", "😕", "😖", "😭", "😊"]
 
   const data = {
-    labels,
+    labels: labels.map((label) => {
+      const jalali = dayjs(label).calendar("jalali").format("YYYY/MM/DD")
+      return digitsEnToFa(jalali)
+    }),
     datasets: [
       {
         label: mode === "enter" ? "میانگین ساعات ورود" : "میانگین ساعات خروج",

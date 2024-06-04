@@ -1,5 +1,5 @@
 export const jalaliConvertor = (date: string) => {
-  const englishToPersianMap = {
+  const englishToPersianMap: any = {
     "0": "۰",
     "1": "۱",
     "2": "۲",
