@@ -16,7 +16,7 @@ const UsersList: React.FC<Props> = ({ selectedUser, setSelectedUser }) => {
       image: "/fake1.jpeg",
     },
     {
-      id: 9124412443241,
+      id: 91244124443241,
       name: " علی علیایی",
       role: "برنامه نویس",
       isActive: true,
@@ -53,8 +53,8 @@ const UsersList: React.FC<Props> = ({ selectedUser, setSelectedUser }) => {
   ]
 
   return (
-    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-hidden">
-      <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8">
+      <div className="inline-block min-w-full shadow rounded-lg ">
         <table className="min-w-full leading-normal text-right" dir="rtl">
           <thead>
             <tr>

@@ -6,7 +6,7 @@ const CategoryCharts: React.FC<{ labels: string[] }> = ({ labels }) => {
     <div className="flex flex-row-reverse justify-end w-full">
       <div className="flex items-start justify-between px-4">
         <div className="flex justify-between w-full">
-          <div className="h-auto max-w-[700px]">
+          <div className="h-auto max-w-[500px]">
             <div className="flex justify-between">
               <EmojiChart mode="enter" />
               <AreaChart labels={labels} mode="enter" />

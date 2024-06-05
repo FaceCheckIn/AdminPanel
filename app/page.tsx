@@ -56,8 +56,8 @@ export default function Home() {
   return (
     <div dir="rtl" className="font-vazir overflow-hidden">
       <Header date={jalaliConvertor(jalaliDate.format("YYYY DD dddd MM"))} />
-      <div className="flex">
-        <div className="w-2/3 p-4">
+      <div className="flex justify-evenly">
+        <div className="w-3/5 p-4">
           {user ? (
             <>
               <div className="flex justify-between items-center">
@@ -127,7 +127,7 @@ export default function Home() {
             </>
           )}
         </div>
-        <div className="w-1/3 pt-10 pe-4">
+        <div className="w-1/5 pt-10 pe-4">
           <UsersList setSelectedUser={setUser} selectedUser={user} />
         </div>
       </div>
