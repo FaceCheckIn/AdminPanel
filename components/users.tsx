@@ -1,3 +1,4 @@
+import { digitsEnToFa } from "@persian-tools/persian-tools"
 import Image from "next/image"
 
 interface Props {
@@ -8,42 +9,42 @@ interface Props {
 const UsersList: React.FC<Props> = ({ selectedUser, setSelectedUser }) => {
   const users = [
     {
-      id: 0,
+      id: 912441244324,
       name: "مصطفی محمدی",
       role: "مدیر",
       isActive: true,
       image: "/fake1.jpeg",
     },
     {
-      id: 1,
+      id: 9124412443241,
       name: " علی علیایی",
       role: "برنامه نویس",
       isActive: true,
       image: "/fake2.jpeg",
     },
     {
-      id: 2,
+      id: 9124412443245,
       name: " سجاد فانی",
       role: "برنامه نویس",
       isActive: false,
       image: "/fake3.jpeg",
     },
     {
-      id: 3,
+      id: 9124412443241,
       name: "مصطفی محمدی",
       role: "مدیر",
       isActive: true,
       image: "/fake1.jpeg",
     },
     {
-      id: 4,
+      id: 9124412544324,
       name: " علی علیایی",
       role: "برنامه نویس",
       isActive: false,
       image: "/fake2.jpeg",
     },
     {
-      id: 5,
+      id: 9312441244324,
       name: " سجاد فانی",
       role: "برنامه نویس",
       isActive: true,
@@ -92,6 +93,9 @@ const UsersList: React.FC<Props> = ({ selectedUser, setSelectedUser }) => {
                     <div className="ml-3">
                       <p className="text-gray-900 whitespace-no-wrap ms-3">
                         {user.name}
+                      </p>
+                      <p className="text-gray-400 whitespace-nowrap ms-3 mt-1">
+                        {digitsEnToFa(user.id)}
                       </p>
                     </div>
                   </div>
