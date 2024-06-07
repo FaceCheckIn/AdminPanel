@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import Providers from "./provider"
+import { Toaster } from "react-hot-toast"
 import "./globals.css"
 
 const vazir = localFont({
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" dir="rtl">
       <body className={vazir.variable}>
+        <Toaster position="top-center" />
         <Providers>{children}</Providers>
       </body>
     </html>

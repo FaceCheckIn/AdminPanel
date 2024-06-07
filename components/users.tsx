@@ -1,5 +1,6 @@
 import { digitsEnToFa } from "@persian-tools/persian-tools"
 import Image from "next/image"
+import UsersModal from "./user-modal"
 
 interface Props {
   selectedUser: any
@@ -55,6 +56,10 @@ const UsersList: React.FC<Props> = ({ selectedUser, setSelectedUser }) => {
   return (
     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8">
       <div className="inline-block min-w-full shadow rounded-lg ">
+        <div className="flex justify-between mb-2 items-center w-full">
+          <h2>افراد</h2>
+          <UsersModal />
+        </div>
         <table className="min-w-full leading-normal text-right" dir="rtl">
           <thead>
             <tr>

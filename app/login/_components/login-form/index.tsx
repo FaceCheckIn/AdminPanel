@@ -1,23 +1,40 @@
 "use client"
 
 import pkj from "@/package.json"
-import { usePathname, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import EyeIcon from "@/public/eye"
 import EyeSlashIcon from "@/public/eye-slash"
+import HttpsService from "../../../../http-service/axios"
+import toast from "react-hot-toast"
+
+const httpService = HttpsService.build()
 
 const LoginForm: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false)
+  const [id, setId] = useState("")
+  const [pass, setPass] = useState("")
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const pathName = usePathname()
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     setLoading(true)
-    setTimeout(() => {
-      localStorage.setItem("isAuth", "true")
-      router.push("/")
-    }, 1000)
+    await httpService
+      .post("users/login/", {
+        identification_code: id,
+        password: pass,
+      })
+      .then(({ data }) => {
+        localStorage.setItem("isAuth", "true")
+        localStorage.setItem("user", JSON.stringify(data.user))
+        localStorage.setItem("tokens", JSON.stringify(data.tokens))
+        httpService.setToken(data.tokens.access)
+        router.push("/")
+      })
+      .catch(() => {
+        toast.error("کدملی یا کلمه عبور صحیح نمی باشد!")
+      })
+      .finally(() => setLoading(false))
   }
 
   return (
@@ -34,12 +51,12 @@ const LoginForm: React.FC = () => {
         </div>
 
         <div className="mt-4">
-          <label className="block text-black text-base mb-2">ایمیل:</label>
+          <label className="block text-black text-base mb-2">کدملی:</label>
           <input
             className="bg-gray-10 text-black focus:outline-none focus:shadow-outline border border-[#dddddd] rounded-2xl py-4 px-4 block w-full appearance-none"
-            type="email"
-            placeholder="ایمیل خود را وارد کنید"
-            name="email"
+            placeholder="کدملی خود را وارد کنید"
+            onChange={(e) => setId(e.target.value)}
+            value={id}
           />
         </div>
         <div className="mt-4 relative">
@@ -49,6 +66,8 @@ const LoginForm: React.FC = () => {
             type={passwordVisible ? "text" : "password"}
             placeholder="کلمه عبور خود را وارد کنید"
             name="password"
+            onChange={(e) => setPass(e.target.value)}
+            value={pass}
           />
           <button
             className="absolute bg-white border border-gray2  rounded-xl top-10 left-2 p-2"

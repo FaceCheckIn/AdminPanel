@@ -8,7 +8,6 @@ import { useEffect, useState } from "react"
 import dayjs from "dayjs"
 import jalaliday from "jalaliday"
 import { jalaliConvertor } from "@/utils/jalali-caonvertor"
-import BarChart from "@/components/bar-chart"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Select, SelectItem } from "@nextui-org/select"
@@ -116,14 +115,7 @@ export default function Home() {
                   onChange={getDates}
                 />
               </div>
-              {category ? (
-                <CategoryCharts labels={labels} />
-              ) : (
-                <>
-                  <BarChart labels={labels} mode="enter" />
-                  <BarChart labels={labels} mode="exit" />
-                </>
-              )}
+              {category ? <CategoryCharts labels={labels} /> : <></>}
             </>
           )}
         </div>
