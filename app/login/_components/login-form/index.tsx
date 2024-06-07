@@ -28,7 +28,7 @@ const LoginForm: React.FC = () => {
         localStorage.setItem("isAuth", "true")
         localStorage.setItem("user", JSON.stringify(data.user))
         localStorage.setItem("tokens", JSON.stringify(data.tokens))
-        httpService.setToken(data.tokens.access)
+        httpService.setToken(`Bearer ${data.tokens.access}`)
         router.push("/")
       })
       .catch(() => {

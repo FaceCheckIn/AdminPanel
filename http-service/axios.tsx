@@ -6,14 +6,14 @@ export default class HttpService {
   private static _instance: AxiosInstance
 
   constructor() {
-    this.baseURL = "http://192.168.191.242:8000/"
+    this.baseURL = "http://192.168.92.242:8000/"
     this.ApiVersion = "api/v1/"
   }
 
   public static build() {
     if (!this._instance) {
       this._instance = axois.create({
-        baseURL: "http://192.168.191.242:8000/",
+        baseURL: "http://192.168.92.242:8000/",
         timeout: 30000,
       })
       this._instance.interceptors.response.use(function (response) {

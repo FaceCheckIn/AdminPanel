@@ -16,9 +16,14 @@ import { filterOptions } from "./utils"
 import { today, getLocalTimeZone } from "@internationalized/date"
 import CategoryCharts from "@/components/category-charts"
 import RangeCalendarPicker from "@/components/range-calendar"
+import { Avatar } from "@nextui-org/react"
 import UsersCharts from "@/components/users-charts"
+import { digitsEnToFa } from "@persian-tools/persian-tools"
+import HttpService from "@/http-service/axios"
 
 dayjs.extend(jalaliday)
+
+const httpService = HttpService.build()
 
 export default function Home() {
   const [user, setUser] = useState<any>(null)
@@ -34,6 +39,9 @@ export default function Home() {
   let [focusedValue, setFocusedValue] = useState<DateValue>(
     today(getLocalTimeZone())
   )
+
+  const currentUser = JSON.parse(localStorage.getItem("user"))
+  const accessToken = JSON.parse(localStorage.getItem("tokens")).access
 
   ChartJS.register(...registerables)
   useEffect(() => {
@@ -52,8 +60,24 @@ export default function Home() {
     setLabels(dates.map((date) => dayjs(date).format("YYYY/MM/DD")))
   }
 
+  const [users, setUsers] = useState([])
+
+  const getUsers = async () => {
+    await httpService
+      .get("users/list/", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((data) => console.log(data))
+  }
+
+  useEffect(() => {
+    getUsers()
+  }, [])
+
   return (
-    <div dir="rtl" className="font-vazir overflow-hidden">
+    <div dir="rtl" className="font-vazir overflow-hidden min-h-screen">
       <Header date={jalaliConvertor(jalaliDate.format("YYYY DD dddd MM"))} />
       <div className="flex justify-evenly">
         <div className="w-3/5 p-4">
@@ -115,12 +139,29 @@ export default function Home() {
                   onChange={getDates}
                 />
               </div>
-              {category ? <CategoryCharts labels={labels} /> : <></>}
+              {category ? (
+                <CategoryCharts labels={labels} />
+              ) : (
+                <div className="w-full h-full flex justify-center flex-col items-center border mt-3 max-h-64 rounded-lg">
+                  <Avatar src={currentUser.image1} className="w-32 h-32" />
+                  <h2 className="text-lg mt-4">
+                    {currentUser.first_name} {currentUser.last_name}
+                  </h2>
+                  <span className="text-gray-500">
+                    {digitsEnToFa(currentUser.identification_code)}
+                  </span>
+                  <span className="text-gray-900">{currentUser.role}</span>
+                </div>
+              )}
             </>
           )}
         </div>
         <div className="w-1/5 pt-10 pe-4">
-          <UsersList setSelectedUser={setUser} selectedUser={user} />
+          <UsersList
+            setSelectedUser={setUser}
+            selectedUser={user}
+            users={users}
+          />
         </div>
       </div>
     </div>

@@ -1,57 +1,63 @@
 import { digitsEnToFa } from "@persian-tools/persian-tools"
 import Image from "next/image"
 import UsersModal from "./user-modal"
+import { useEffect, useState } from "react"
+import HttpService from "@/http-service/axios"
 
 interface Props {
   selectedUser: any
   setSelectedUser: any
 }
 
-const UsersList: React.FC<Props> = ({ selectedUser, setSelectedUser }) => {
-  const users = [
-    {
-      id: 912441244324,
-      name: "مصطفی محمدی",
-      role: "مدیر",
-      isActive: true,
-      image: "/fake1.jpeg",
-    },
-    {
-      id: 91244124443241,
-      name: " علی علیایی",
-      role: "برنامه نویس",
-      isActive: true,
-      image: "/fake2.jpeg",
-    },
-    {
-      id: 9124412443245,
-      name: " سجاد فانی",
-      role: "برنامه نویس",
-      isActive: false,
-      image: "/fake3.jpeg",
-    },
-    {
-      id: 9124412443241,
-      name: "مصطفی محمدی",
-      role: "مدیر",
-      isActive: true,
-      image: "/fake1.jpeg",
-    },
-    {
-      id: 9124412544324,
-      name: " علی علیایی",
-      role: "برنامه نویس",
-      isActive: false,
-      image: "/fake2.jpeg",
-    },
-    {
-      id: 9312441244324,
-      name: " سجاد فانی",
-      role: "برنامه نویس",
-      isActive: true,
-      image: "/fake3.jpeg",
-    },
-  ]
+const UsersList: React.FC<Props> = ({
+  selectedUser,
+  setSelectedUser,
+  users,
+}) => {
+  // const users = [
+  //   {
+  //     id: 912441244324,
+  //     name: "مصطفی محمدی",
+  //     role: "مدیر",
+  //     isActive: true,
+  //     image: "/fake1.jpeg",
+  //   },
+  //   {
+  //     id: 91244124443241,
+  //     name: " علی علیایی",
+  //     role: "برنامه نویس",
+  //     isActive: true,
+  //     image: "/fake2.jpeg",
+  //   },
+  //   {
+  //     id: 9124412443245,
+  //     name: " سجاد فانی",
+  //     role: "برنامه نویس",
+  //     isActive: false,
+  //     image: "/fake3.jpeg",
+  //   },
+  //   {
+  //     id: 9124412443241,
+  //     name: "مصطفی محمدی",
+  //     role: "مدیر",
+  //     isActive: true,
+  //     image: "/fake1.jpeg",
+  //   },
+  //   {
+  //     id: 9124412544324,
+  //     name: " علی علیایی",
+  //     role: "برنامه نویس",
+  //     isActive: false,
+  //     image: "/fake2.jpeg",
+  //   },
+  //   {
+  //     id: 9312441244324,
+  //     name: " سجاد فانی",
+  //     role: "برنامه نویس",
+  //     isActive: true,
+  //     image: "/fake3.jpeg",
+  //   },
+  // ]
 
   return (
     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8">
