@@ -13,58 +13,16 @@ const UsersList: React.FC<Props> = ({
   selectedUser,
   setSelectedUser,
   users,
+  modalSubmit,
 }) => {
-  // const users = [
-  //   {
-  //     id: 912441244324,
-  //     name: "مصطفی محمدی",
-  //     role: "مدیر",
-  //     isActive: true,
-  //     image: "/fake1.jpeg",
-  //   },
-  //   {
-  //     id: 91244124443241,
-  //     name: " علی علیایی",
-  //     role: "برنامه نویس",
-  //     isActive: true,
-  //     image: "/fake2.jpeg",
-  //   },
-  //   {
-  //     id: 9124412443245,
-  //     name: " سجاد فانی",
-  //     role: "برنامه نویس",
-  //     isActive: false,
-  //     image: "/fake3.jpeg",
-  //   },
-  //   {
-  //     id: 9124412443241,
-  //     name: "مصطفی محمدی",
-  //     role: "مدیر",
-  //     isActive: true,
-  //     image: "/fake1.jpeg",
-  //   },
-  //   {
-  //     id: 9124412544324,
-  //     name: " علی علیایی",
-  //     role: "برنامه نویس",
-  //     isActive: false,
-  //     image: "/fake2.jpeg",
-  //   },
-  //   {
-  //     id: 9312441244324,
-  //     name: " سجاد فانی",
-  //     role: "برنامه نویس",
-  //     isActive: true,
-  //     image: "/fake3.jpeg",
-  //   },
-  // ]
+  console.log({ users })
 
   return (
     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8">
       <div className="inline-block min-w-full shadow rounded-lg ">
         <div className="flex justify-between mb-2 items-center w-full">
           <h2>افراد</h2>
-          <UsersModal />
+          <UsersModal onSubmit={modalSubmit} />
         </div>
         <table className="min-w-full leading-normal text-right" dir="rtl">
           <thead>
@@ -81,7 +39,7 @@ const UsersList: React.FC<Props> = ({
             </tr>
           </thead>
           <tbody className="max-h-[200px] overflow-hidden">
-            {users.map((user) => (
+            {users.map((user: any) => (
               <tr
                 key={user.id}
                 onClick={() => setSelectedUser(user)}
@@ -96,17 +54,17 @@ const UsersList: React.FC<Props> = ({
                       <Image
                         width={44}
                         height={44}
-                        className="w-full h-full rounded-full"
-                        src={user.image}
+                        className="w-full h-full rounded-full object-contain"
+                        src={user.image1}
                         alt=""
                       />
                     </div>
                     <div className="ml-3">
-                      <p className="text-gray-900 whitespace-no-wrap ms-3">
-                        {user.name}
+                      <p className="text-gray-900 whitespace-no-wrap ms-3 line-clamp-1">
+                        {user.first_name} {user.last_name}
                       </p>
                       <p className="text-gray-400 whitespace-nowrap ms-3 mt-1">
-                        {digitsEnToFa(user.id)}
+                        {digitsEnToFa(user.identification_code)}
                       </p>
                     </div>
                   </div>
@@ -117,7 +75,7 @@ const UsersList: React.FC<Props> = ({
                   </p>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 ">
-                  {user.isActive ? (
+                  {user.status === "enter" ? (
                     <div className="pulse  bg-green-700 rounded-full size-4"></div>
                   ) : (
                     <div className="pulse bg-red-500 rounded-full size-4"></div>

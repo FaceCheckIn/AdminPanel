@@ -69,12 +69,16 @@ export default function Home() {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then((data) => console.log(data))
+      .then(({ data }) => setUsers(data))
   }
 
   useEffect(() => {
     getUsers()
   }, [])
+
+  const onAddUser = async (values) => {
+    console.log(values)
+  }
 
   return (
     <div dir="rtl" className="font-vazir overflow-hidden min-h-screen">
@@ -88,16 +92,25 @@ export default function Home() {
                   <Image
                     width={44}
                     height={44}
-                    className=" rounded-full"
-                    src={user.image}
+                    className="object-contain rounded-full size-24"
+                    src={user.image1}
                     alt=""
                   />
-                  <h4 className="mx-3">{user.name}</h4>
-                  {user.isActive ? (
-                    <div className="pulse mt-1 bg-green-700 rounded-full size-4"></div>
-                  ) : (
-                    <div className="pulse bg-red-500 rounded-full size-4"></div>
-                  )}
+                  <div>
+                    <div className="flex items-center">
+                      <h4 className="mx-3">
+                        {user.first_name} {user.last_name}
+                      </h4>
+                      {user.status === "enter" ? (
+                        <div className="pulse mt-1 bg-green-700 rounded-full size-4"></div>
+                      ) : (
+                        <div className="pulse bg-red-500 rounded-full size-4"></div>
+                      )}
+                    </div>
+                    <p className="text-gray-400 whitespace-nowrap ms-3 mt-1">
+                      {digitsEnToFa(user.identification_code)}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex items-center">
                   <RangeCalendarPicker
@@ -161,6 +174,7 @@ export default function Home() {
             setSelectedUser={setUser}
             selectedUser={user}
             users={users}
+            modalSubmit={onAddUser}
           />
         </div>
       </div>

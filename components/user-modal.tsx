@@ -8,9 +8,21 @@ import {
   useDisclosure,
 } from "@nextui-org/react"
 import { Input } from "@nextui-org/react"
+import { useState } from "react"
 
-export default function UsersModal() {
+export default function UsersModal({ onSubmit }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const [first_name, setFirstName] = useState("")
+  const [last_name, setLast] = useState("")
+  const [id, setId] = useState("")
+  const [role, setRole] = useState("")
+  const [pass1, setPass1] = useState("")
+  const [pass2, setPass2] = useState("")
+
+  const handleSubmit = async (handleClose) => {
+    await onSubmit()
+    handleClose()
+  }
 
   return (
     <>
@@ -50,15 +62,49 @@ export default function UsersModal() {
                 </div>
                 <h5 className="text-center text-sm">آپلود تصویر</h5>
 
-                <Input type="text" label="کدملی" />
-                <Input type="text" label="نام" />
-                <Input type="text" label="نام خانوادگی" />
-                <Input type="text" label="نقش" />
-                <Input type="text" label="کلمه عبور" />
-                <Input type="text" label="تایید کلمه عبور" />
+                <Input
+                  type="text"
+                  label="کدملی"
+                  onChange={(e) => setId(e.target.value)}
+                  value={id}
+                />
+                <Input
+                  type="text"
+                  label="نام"
+                  onChange={(e) => setFirstName(e.target.value)}
+                  value={first_name}
+                />
+                <Input
+                  type="text"
+                  label="نام خانوادگی"
+                  onChange={(e) => setLast(e.target.value)}
+                  value={last_name}
+                />
+                <Input
+                  type="text"
+                  label="نقش"
+                  onChange={(e) => setRole(e.target.value)}
+                  value={role}
+                />
+                <Input
+                  type="text"
+                  label="کلمه عبور"
+                  onChange={(e) => setPass1(e.target.value)}
+                  value={pass1}
+                />
+                <Input
+                  type="text"
+                  label="تایید کلمه عبور"
+                  onChange={(e) => setPass2(e.target.value)}
+                  value={pass2}
+                />
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" onPress={onClose} className="w-full">
+                <Button
+                  color="primary"
+                  onPress={() => handleSubmit(onClose)}
+                  className="w-full"
+                >
                   افزودن
                 </Button>
               </ModalFooter>
