@@ -36,6 +36,8 @@ export default function Home() {
   const [labels, setLabels] = useState<string[]>([])
   const [emojiEnterChartsData, setEmojiEnterChartsData] = useState([])
   const [emojiExitChartsData, setEmojiExitChartsData] = useState([])
+  const [userEnterChart, setUserEnterChart] = useState([])
+  const [userExitChart, setUserExitChart] = useState([])
   let [value, setValue] = useState<RangeValue<DateValue>>({
     start: today(getLocalTimeZone()),
     end: today(getLocalTimeZone()).add({ weeks: 1, days: 3 }),
@@ -112,9 +114,10 @@ export default function Home() {
         }
       )
       .then(({ data }: any) => {
-        console.log(data)
         setEmojiEnterChartsData(data.enter_sentiment_table)
         setEmojiExitChartsData(data.exit_sentiment_table)
+        setUserEnterChart(data.enter_avg_hour_table)
+        setUserExitChart(data.exit_avg_hour_table)
       })
   }
 
@@ -178,6 +181,8 @@ export default function Home() {
                 labels={labels}
                 enterSentiment={emojiEnterChartsData}
                 exitSentiment={emojiExitChartsData}
+                enterChart={userEnterChart}
+                exitChart={userExitChart}
               />
             </>
           ) : (

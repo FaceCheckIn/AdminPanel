@@ -4,17 +4,7 @@ import { Chart as ChartJS, Tooltip } from "chart.js"
 ChartJS.register(Tooltip)
 
 const EmojiChart: React.FC<any> = ({ mode, inputData }) => {
-  function getRandomNumber(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }
-  const labels = [
-    "Furious",
-    "Neutral",
-    "Sadness",
-    "Angry",
-    "Happy",
-    "Delighted",
-  ]
+  const labels = ["Furious", "Sadness", "Neutral", "Happiness", "Delighted"]
 
   const data = {
     labels,

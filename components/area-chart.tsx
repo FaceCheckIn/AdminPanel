@@ -2,29 +2,26 @@ import { Line } from "react-chartjs-2"
 import { digitsEnToFa } from "@persian-tools/persian-tools"
 import dayjs from "dayjs"
 
-const AreaChart: React.FC<{ labels: string[]; mode: "enter" | "exit" }> = ({
-  labels = [],
-  mode,
-}) => {
-  function getRandomNumber(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }
+const AreaChart: React.FC<any> = ({ labels = [], mode, inputData }) => {
+  console.log(
+    inputData?.map(({ time }: any) => Number(time.split(":")[1])) * 1.6
+  )
 
   const emojis = ["😃", "🙂", "😕", "😖", "😭", "😊"]
 
   const data = {
-    labels: labels.map((label) => {
-      const jalali = dayjs(label).calendar("jalali").format("YYYY/MM/DD")
-      return digitsEnToFa(jalali)
-    }),
+    labels: labels,
     datasets: [
       {
         label: mode === "enter" ? "میانگین ساعات ورود" : "میانگین ساعات خروج",
         fill: true,
-        data:
-          mode === "enter"
-            ? labels.map((_) => getRandomNumber(6, 10))
-            : labels.map((_) => getRandomNumber(16, 22)),
+        data: inputData?.map(({ time }: any) =>
+          Number(
+            `${Number(time.split(":")[0])}.${Math.floor(
+              parseInt(time.split(":")[1][0]) * 1.6
+            )}`
+          )
+        ),
         backgroundColor:
           mode === "enter"
             ? ["rgba(75, 192, 192, 0.2)"]
@@ -39,6 +36,21 @@ const AreaChart: React.FC<{ labels: string[]; mode: "enter" | "exit" }> = ({
     scales: {
       y: {
         beginAtZero: false,
+        min: mode === "enter" ? 7 : 13,
+        max: mode === "enter" ? 12 : 18,
+      },
+      x: {
+        ticks: {
+          callback: function (value: any) {
+            const res = labels.map((label: any) => {
+              const jalali = dayjs(label)
+                .calendar("jalali")
+                .format("YYYY/MM/DD")
+              return digitsEnToFa(jalali)
+            })
+            return res[value]
+          },
+        },
       },
     },
     plugins: {
