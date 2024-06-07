@@ -10,18 +10,28 @@ import {
 import { Input } from "@nextui-org/react"
 import { useState } from "react"
 
-export default function UsersModal({ onSubmit }) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+export default function UsersModal({ onSubmit }: any) {
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
   const [first_name, setFirstName] = useState("")
   const [last_name, setLast] = useState("")
   const [id, setId] = useState("")
   const [role, setRole] = useState("")
   const [pass1, setPass1] = useState("")
   const [pass2, setPass2] = useState("")
+  const [file, setFile] = useState("")
 
-  const handleSubmit = async (handleClose) => {
-    await onSubmit()
-    handleClose()
+  const handleSubmit = async () => {
+    const formData = new FormData()
+    formData.append("first_name", first_name)
+    formData.append("last_name", last_name)
+    formData.append("identification_code", id)
+    formData.append("role", role)
+    formData.append("password1", pass1)
+    formData.append("password2", pass2)
+    if (file) formData.append("image1", file)
+
+    onSubmit(formData)
+    onClose()
   }
 
   return (
@@ -57,7 +67,12 @@ export default function UsersModal({ onSubmit }) {
                         />
                       </svg>
                     </div>
-                    <input id="dropzone-file" type="file" className="hidden" />
+                    <input
+                      id="dropzone-file"
+                      type="file"
+                      className="hidden"
+                      onChange={(e) => setFile(e.target.files[0])}
+                    />
                   </label>
                 </div>
                 <h5 className="text-center text-sm">آپلود تصویر</h5>
@@ -102,7 +117,7 @@ export default function UsersModal({ onSubmit }) {
               <ModalFooter>
                 <Button
                   color="primary"
-                  onPress={() => handleSubmit(onClose)}
+                  onPress={handleSubmit}
                   className="w-full"
                 >
                   افزودن

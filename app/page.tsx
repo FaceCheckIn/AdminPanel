@@ -20,6 +20,7 @@ import { Avatar } from "@nextui-org/react"
 import UsersCharts from "@/components/users-charts"
 import { digitsEnToFa } from "@persian-tools/persian-tools"
 import HttpService from "@/http-service/axios"
+import toast from "react-hot-toast"
 
 dayjs.extend(jalaliday)
 
@@ -77,7 +78,18 @@ export default function Home() {
   }, [])
 
   const onAddUser = async (values) => {
-    console.log(values)
+    await httpService
+      .post("users/register/", values, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(() => {
+        toast.success("کاربر با موفقیت ایجاد شد.")
+      })
+      .catch(() => {
+        toast.error("لطفا بعدا تلاش کنید!")
+      })
   }
 
   return (
@@ -102,9 +114,11 @@ export default function Home() {
                         {user.first_name} {user.last_name}
                       </h4>
                       {user.status === "enter" ? (
-                        <div className="pulse mt-1 bg-green-700 rounded-full size-4"></div>
-                      ) : (
+                        <div className="pulse  bg-green-700 rounded-full size-4"></div>
+                      ) : user.status === "exit" ? (
                         <div className="pulse bg-red-500 rounded-full size-4"></div>
+                      ) : (
+                        <div className="pulse bg-gray-300 rounded-full size-4"></div>
                       )}
                     </div>
                     <p className="text-gray-400 whitespace-nowrap ms-3 mt-1">

@@ -15,8 +15,6 @@ const UsersList: React.FC<Props> = ({
   users,
   modalSubmit,
 }) => {
-  console.log({ users })
-
   return (
     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8">
       <div className="inline-block min-w-full shadow rounded-lg ">
@@ -77,8 +75,10 @@ const UsersList: React.FC<Props> = ({
                 <td className="px-5 py-5 border-b border-gray-200 ">
                   {user.status === "enter" ? (
                     <div className="pulse  bg-green-700 rounded-full size-4"></div>
-                  ) : (
+                  ) : user.status === "exit" ? (
                     <div className="pulse bg-red-500 rounded-full size-4"></div>
+                  ) : (
+                    <div className="pulse bg-gray-300 rounded-full size-4"></div>
                   )}
                 </td>
               </tr>
