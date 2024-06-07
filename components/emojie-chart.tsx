@@ -3,17 +3,25 @@ import { Chart as ChartJS, Tooltip } from "chart.js"
 
 ChartJS.register(Tooltip)
 
-const EmojiChart: React.FC<{ mode: "enter" | "exit" }> = ({ mode }) => {
+const EmojiChart: React.FC<any> = ({ mode, inputData }) => {
   function getRandomNumber(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
+  const labels = [
+    "Furious",
+    "Neutral",
+    "Sadness",
+    "Angry",
+    "Happy",
+    "Delighted",
+  ]
 
   const data = {
-    labels: ["😃", "🙂", "😕", "😖", "😭", "😊"],
+    labels,
     datasets: [
       {
         label: mode === "enter" ? "حالت ورود" : "حالت خروج",
-        data: [1, 2, 3, 4, 5, 6].map((_) => getRandomNumber(1, 6)),
+        data: inputData,
         backgroundColor:
           mode === "enter"
             ? ["rgba(75, 192, 192, 0.2)"]
@@ -28,6 +36,8 @@ const EmojiChart: React.FC<{ mode: "enter" | "exit" }> = ({ mode }) => {
     scales: {
       y: {
         beginAtZero: false,
+        min: 0,
+        max: 10,
       },
     },
   }

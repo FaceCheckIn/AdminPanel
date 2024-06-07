@@ -28,11 +28,14 @@ const httpService = HttpService.build()
 
 export default function Home() {
   const [user, setUser] = useState<any>(null)
+  const [users, setUsers] = useState([])
   const date = dayjs()
   const router = useRouter()
   const [category, setCategory] = useState("")
   const jalaliDate = date.calendar("jalali")
   const [labels, setLabels] = useState<string[]>([])
+  const [emojiEnterChartsData, setEmojiEnterChartsData] = useState([])
+  const [emojiExitChartsData, setEmojiExitChartsData] = useState([])
   let [value, setValue] = useState<RangeValue<DateValue>>({
     start: today(getLocalTimeZone()),
     end: today(getLocalTimeZone()).add({ weeks: 1, days: 3 }),
@@ -61,8 +64,6 @@ export default function Home() {
     setLabels(dates.map((date) => dayjs(date).format("YYYY/MM/DD")))
   }
 
-  const [users, setUsers] = useState([])
-
   const getUsers = async () => {
     await httpService
       .get("users/list/", {
@@ -90,7 +91,38 @@ export default function Home() {
       .catch(() => {
         toast.error("لطفا بعدا تلاش کنید!")
       })
+    getUsers()
   }
+
+  // charts api
+
+  const getUsersCharts = async () => {
+    await httpService
+      .post(
+        "facecheckin/activity/by/manager/",
+        {
+          user_id: user.id,
+          start_date: dayjs(value.start).format("YYYY-MM-DD"),
+          end_date: dayjs(value.end).format("YYYY-MM-DD"),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      .then(({ data }: any) => {
+        console.log(data)
+        setEmojiEnterChartsData(data.enter_sentiment_table)
+        setEmojiExitChartsData(data.exit_sentiment_table)
+      })
+  }
+
+  useEffect(() => {
+    if (user?.id) {
+      getUsersCharts()
+    }
+  }, [user, value])
 
   return (
     <div dir="rtl" className="font-vazir overflow-hidden min-h-screen">
@@ -142,7 +174,11 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              <UsersCharts labels={labels} />
+              <UsersCharts
+                labels={labels}
+                enterSentiment={emojiEnterChartsData}
+                exitSentiment={emojiExitChartsData}
+              />
             </>
           ) : (
             <>
@@ -167,7 +203,10 @@ export default function Home() {
                 />
               </div>
               {category ? (
-                <CategoryCharts labels={labels} />
+                <CategoryCharts
+                  labels={labels}
+                  enterSentiment={emojiEnterChartsData}
+                />
               ) : (
                 <div className="w-full h-full flex justify-center flex-col items-center border mt-3 max-h-64 rounded-lg">
                   <Avatar src={currentUser.image1} className="w-32 h-32" />

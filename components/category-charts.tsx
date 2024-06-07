@@ -1,7 +1,9 @@
 import AreaChart from "./area-chart"
 import EmojiChart from "./emojie-chart"
 
-const CategoryCharts: React.FC<{ labels: string[] }> = ({ labels }) => {
+const CategoryCharts: React.FC<any> = ({ labels, enterSentiment }) => {
+  // console.log("categ", enterSentiment)
+
   return (
     <div className="flex flex-row-reverse justify-end w-full">
       <div className="flex items-start justify-between px-4">
