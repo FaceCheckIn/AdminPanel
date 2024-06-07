@@ -80,7 +80,7 @@ export default function Home() {
     getUsers()
   }, [])
 
-  const onAddUser = async (values) => {
+  const onAddUser = async (values: any) => {
     await httpService
       .post("users/register/", values, {
         headers: {
@@ -187,9 +187,9 @@ export default function Home() {
             </>
           ) : (
             <>
-              <h2 className="font-semibold text-medium">گزارش جامع</h2>
               <div className="flex justify-between pe-8">
-                <Select
+                <h2 className="font-semibold text-medium">گزارش جامع</h2>
+                {/* <Select
                   label="فیلتر بر اساس"
                   className="max-w-[200px] mt-4"
                   onChange={(e) => setCategory(e.target.value)}
@@ -198,7 +198,7 @@ export default function Home() {
                   {filterOptions.map((item) => (
                     <SelectItem key={item.value}>{item.label}</SelectItem>
                   ))}
-                </Select>
+                </Select> */}
                 <RangeCalendarPicker
                   value={value}
                   focusedValue={focusedValue}
